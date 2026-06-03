@@ -1,9 +1,10 @@
 import './bootstrap';
-import { createApp, h } from 'vue';
+import { createApp, h, watch } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { createPinia } from 'pinia';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from 'ziggy-js';
+import { useAppStore } from '@/Stores/app';
 
 const appName = import.meta.env.VITE_APP_NAME || 'NexusMart';
 
@@ -16,6 +17,11 @@ createInertiaApp({
         app.use(createPinia());
         app.use(ZiggyVue);
         app.mount(el);
+
+        const appStore = useAppStore();
+        watch(() => appStore.theme, (val) => {
+            try { document.documentElement.classList.toggle('dark', val === 'dark') } catch {}
+        }, { immediate: true });
     },
     progress: {
         color: '#6366f1',

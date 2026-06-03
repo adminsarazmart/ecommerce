@@ -1,0 +1,1 @@
+import{S as o,c as r,o as c}from"./app-D62ms7Ih.js";const a={__name:"Edit",props:{product:{type:Object,required:!0}},setup(t){return(p,u)=>{const e=o("CreateProduct");return c(),r(e,{product:t.product},null,8,["product"])}}};export{a as default};

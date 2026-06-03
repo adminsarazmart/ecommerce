@@ -38,6 +38,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { Link } from '@inertiajs/vue3'
 import { ShoppingCartIcon, HeartIcon, StarIcon, UserIcon, MapPinIcon, ClockIcon, WalletIcon, GiftTopIcon, ArrowDownTrayIcon } from '@heroicons/vue/24/outline'
 import StorefrontLayout from '@/Layouts/StorefrontLayout.vue'
