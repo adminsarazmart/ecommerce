@@ -19,11 +19,13 @@ export const useWishlistStore = defineStore('wishlist', () => {
 
     function clearWishlist() { items.value = []; persist() }
 
-    function persist() { localStorage.setItem('wishlist', JSON.stringify(items.value)) }
+    function persist() { try { localStorage.setItem('wishlist', JSON.stringify(items.value)) } catch {} }
 
     function load() {
-        const saved = localStorage.getItem('wishlist')
-        if (saved) items.value = JSON.parse(saved)
+        try {
+            const saved = localStorage.getItem('wishlist')
+            if (saved) items.value = JSON.parse(saved)
+        } catch { items.value = [] }
     }
 
     load()

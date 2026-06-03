@@ -43,16 +43,18 @@ export const useCartStore = defineStore('cart', () => {
     function clearCart() { items.value = []; coupon.value = null; persist() }
 
     function persist() {
-        localStorage.setItem('cart', JSON.stringify({ items: items.value, coupon: coupon.value }))
+        try { localStorage.setItem('cart', JSON.stringify({ items: items.value, coupon: coupon.value })) } catch {}
     }
 
     function load() {
-        const saved = localStorage.getItem('cart')
-        if (saved) {
-            const data = JSON.parse(saved)
-            items.value = data.items || []
-            coupon.value = data.coupon || null
-        }
+        try {
+            const saved = localStorage.getItem('cart')
+            if (saved) {
+                const data = JSON.parse(saved)
+                items.value = data.items || []
+                coupon.value = data.coupon || null
+            }
+        } catch { items.value = []; coupon.value = null }
     }
 
     load()

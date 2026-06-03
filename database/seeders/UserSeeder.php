@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('password'),
             'email_verified_at' => now(),
         ]);
-        $superAdmin->assignRole('Super Admin');
+        $superAdmin->assignRole('super_admin');
         UserProfile::create(['user_id' => $superAdmin->id, 'first_name' => 'Super', 'last_name' => 'Admin', 'phone' => '01700000000']);
 
         $admin = User::create([
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('password'),
             'email_verified_at' => now(),
         ]);
-        $admin->assignRole('Admin');
+        $admin->assignRole('admin');
         UserProfile::create(['user_id' => $admin->id, 'first_name' => 'Admin', 'last_name' => 'User', 'phone' => '01700000001']);
 
         $vendorUsers = [];

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 require __DIR__.'/admin.php';
@@ -31,9 +32,34 @@ Route::middleware('guest')->group(function () {
         return Inertia::render('Auth/Login');
     })->name('login');
 
+    Route::post('/login', function (\App\Http\Requests\LoginRequest $request) {
+        if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'email' => __('auth.failed'),
+            ]);
+        }
+        request()->session()->regenerate();
+        if (Auth::user()->hasAnyRole(['super_admin', 'admin'])) {
+            return redirect()->intended('/admin/dashboard');
+        }
+        return redirect()->intended('/');
+    })->name('login.store');
+
     Route::get('/register', function () {
         return Inertia::render('Auth/Register');
     })->name('register');
+
+    Route::post('/register', function (\App\Http\Requests\RegisterRequest $request) {
+        $user = \App\Models\User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+        ]);
+        \App\Models\Customer::create(['user_id' => $user->id]);
+        $user->assignRole('Customer');
+        Auth::login($user);
+        return redirect('/');
+    })->name('register.store');
 
     Route::get('/forgot-password', function () {
         return Inertia::render('Auth/ForgotPassword');
@@ -43,6 +69,13 @@ Route::middleware('guest')->group(function () {
         return Inertia::render('Auth/ResetPassword', ['token' => $token]);
     })->name('password.reset');
 });
+
+Route::post('/logout', function () {
+    Auth::guard('web')->logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/');
+})->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/account', function () {
@@ -89,6 +122,26 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Storefront/Account/Downloadable');
     })->name('account.downloads');
 });
+
+Route::get('/search', function (\Illuminate\Http\Request $request) {
+    $query = $request->q;
+    $results = [];
+    if ($query && strlen($query) >= 2) {
+        $products = \App\Models\Product::where('name', 'like', "%{$query}%")
+            ->orWhere('description', 'like', "%{$query}%")
+            ->limit(10)
+            ->get()
+            ->map(fn ($p) => [
+                'id' => $p->id,
+                'name' => $p->name,
+                'price' => $p->price,
+                'image' => $p->thumbnail ?? '/placeholder.jpg',
+                'url' => "/shop/{$p->slug}",
+            ]);
+        $results = $products->toArray();
+    }
+    return response()->json(['results' => $results]);
+})->name('search');
 
 Route::get('/sitemap.xml', function () {
     return response()->view('sitemap')->header('Content-Type', 'application/xml');

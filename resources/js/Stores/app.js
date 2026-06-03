@@ -4,7 +4,8 @@ import { ref, computed } from 'vue'
 export const useAppStore = defineStore('app', () => {
     const sidebarOpen = ref(true)
     const sidebarCollapsed = ref(false)
-    const theme = ref(localStorage.getItem('theme') || 'light')
+    const theme = ref('light')
+    try { theme.value = localStorage.getItem('theme') || 'light' } catch {}
     const locale = ref('en')
     const currency = ref('USD')
     const currencies = ref(['USD', 'EUR', 'GBP', 'INR', 'AED'])

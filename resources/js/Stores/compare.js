@@ -19,11 +19,13 @@ export const useCompareStore = defineStore('compare', () => {
 
     function clearCompare() { items.value = []; persist() }
 
-    function persist() { localStorage.setItem('compare', JSON.stringify(items.value)) }
+    function persist() { try { localStorage.setItem('compare', JSON.stringify(items.value)) } catch {} }
 
     function load() {
-        const saved = localStorage.getItem('compare')
-        if (saved) items.value = JSON.parse(saved)
+        try {
+            const saved = localStorage.getItem('compare')
+            if (saved) items.value = JSON.parse(saved)
+        } catch { items.value = [] }
     }
 
     load()

@@ -1,7 +1,7 @@
 <template>
   <Menu as="div" class="relative inline-block text-left">
     <div>
-      <MenuButton :class="buttonClass" :disabled="disabled">
+      <MenuButton v-slot="{ open }" :class="buttonClass" :disabled="disabled">
         <slot name="button">
           <span>{{ label }}</span>
           <ChevronDownIcon class="h-4 w-4 ml-1" :class="{ 'rotate-180': open }" />

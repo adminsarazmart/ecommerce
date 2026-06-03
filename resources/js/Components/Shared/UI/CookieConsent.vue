@@ -16,7 +16,8 @@
 import { ref } from 'vue'
 import Button from './Button.vue'
 
-const accepted = ref(localStorage.getItem('cookie-consent') === 'true')
+const accepted = ref(false)
+try { accepted.value = localStorage.getItem('cookie-consent') === 'true' } catch {}
 
 const accept = () => { accepted.value = true; localStorage.setItem('cookie-consent', 'true') }
 const decline = () => { accepted.value = true; localStorage.setItem('cookie-consent', 'false') }
