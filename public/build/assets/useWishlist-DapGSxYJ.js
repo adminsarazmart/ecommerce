@@ -1,0 +1,1 @@
+import{a as n}from"./StorefrontLayout-CRDVdWv8.js";import{m as e}from"./app-CT71Ffot.js";function u(){const t=n(),o=s=>t.toggleItem(s),i=s=>t.removeItem(s),m=s=>t.isInWishlist(s),r=()=>t.clearWishlist();return{items:e(()=>t.items),count:e(()=>t.count),toggleItem:o,removeItem:i,isInWishlist:m,clearWishlist:r}}export{u};

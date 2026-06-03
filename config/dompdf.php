@@ -1,0 +1,43 @@
+<?php
+
+return [
+    'show_warnings' => env('DOMPDF_SHOW_WARNINGS', false),
+
+    'orientation' => env('DOMPDF_ORIENTATION', 'portrait'),
+
+    'defines' => [
+        'font_dir' => storage_path('fonts'),
+        'font_cache' => storage_path('fonts'),
+        'temp_dir' => sys_get_temp_dir(),
+        'chroot' => realpath(base_path()),
+        'prepend_functions' => [],
+        'enable_font_subsetting' => env('DOMPDF_ENABLE_FONT_SUBSETTING', true),
+        'enable_remote' => env('DOMPDF_ENABLE_REMOTE', true),
+        'enable_html5_parser' => env('DOMPDF_ENABLE_HTML5PARSER', true),
+        'log_output_file' => storage_path('logs/dompdf.log'),
+        'isFontSubsettingEnabled' => env('DOMPDF_ENABLE_FONT_SUBSETTING', true),
+        'isRemoteEnabled' => env('DOMPDF_ENABLE_REMOTE', true),
+        'isHtml5ParserEnabled' => env('DOMPDF_ENABLE_HTML5PARSER', true),
+        'isPhpEnabled' => env('DOMPDF_ENABLE_PHP', false),
+        'isJavascriptEnabled' => env('DOMPDF_ENABLE_JAVASCRIPT', false),
+        'dpi' => env('DOMPDF_DPI', 96),
+        'default_paper_size' => env('DOMPDF_DEFAULT_PAPER', 'letter'),
+        'default_paper_orientation' => env('DOMPDF_DEFAULT_PAPER_ORIENTATION', 'portrait'),
+        'font_height_ratio' => env('DOMPDF_FONT_HEIGHT_RATIO', 1.1),
+        'enable_css_float' => env('DOMPDF_ENABLE_CSS_FLOAT', true),
+        'default_media_type' => env('DOMPDF_DEFAULT_MEDIA_TYPE', 'screen'),
+        'default_font' => env('DOMPDF_DEFAULT_FONT', 'serif'),
+        'debug_png' => env('DOMPDF_DEBUG_PNG', false),
+        'debug_keep_temp' => env('DOMPDF_DEBUG_KEEP_TEMP', false),
+        'debug_css' => env('DOMPDF_DEBUG_CSS', false),
+        'debug_layout' => env('DOMPDF_DEBUG_LAYOUT', false),
+        'debug_layout_lines' => env('DOMPDF_DEBUG_LAYOUT_LINES', true),
+        'debug_layout_blocks' => env('DOMPDF_DEBUG_LAYOUT_BLOCKS', true),
+        'debug_layout_inline' => env('DOMPDF_DEBUG_LAYOUT_INLINE', true),
+        'debug_layout_padding_box' => env('DOMPDF_DEBUG_LAYOUT_PADDINGBOX', true),
+        'pdf_backend' => env('DOMPDF_PDF_BACKEND', 'CPDF'),
+        'admin_username' => env('DOMPDF_ADMIN_USERNAME', 'user'),
+        'admin_password' => env('DOMPDF_ADMIN_PASSWORD', 'password'),
+        'font_bridge' => \Barryvdh\DomPDF\FontBridge::class,
+    ],
+];
