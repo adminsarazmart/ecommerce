@@ -1,1 +1,0 @@
-import{u as a}from"./StorefrontLayout-aCmVOG2I.js";import{m as t}from"./app-D62ms7Ih.js";function u(){const e=a(),m=o=>e.toggleItem(o),r=o=>e.removeItem(o),s=o=>e.isInCompare(o),n=()=>e.clearCompare();return{items:t(()=>e.items),count:t(()=>e.count),canAddMore:t(()=>e.items.length<4),toggleItem:m,removeItem:r,isInCompare:s,clearCompare:n}}export{u};

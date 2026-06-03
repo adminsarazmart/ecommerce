@@ -1,1 +1,0 @@
-import{a as n}from"./StorefrontLayout-aCmVOG2I.js";import{m as e}from"./app-D62ms7Ih.js";function u(){const t=n(),o=s=>t.toggleItem(s),i=s=>t.removeItem(s),m=s=>t.isInWishlist(s),r=()=>t.clearWishlist();return{items:e(()=>t.items),count:e(()=>t.count),toggleItem:o,removeItem:i,isInWishlist:m,clearWishlist:r}}export{u};
