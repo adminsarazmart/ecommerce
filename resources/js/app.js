@@ -3,8 +3,9 @@ import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { createPinia } from 'pinia';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { ZiggyVue } from 'ziggy-js';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Marketplace';
+const appName = import.meta.env.VITE_APP_NAME || 'NexusMart';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -13,10 +14,11 @@ createInertiaApp({
         const app = createApp({ render: () => h(App, props) });
         app.use(plugin);
         app.use(createPinia());
+        app.use(ZiggyVue);
         app.mount(el);
     },
     progress: {
-        color: '#4c6ef5',
+        color: '#6366f1',
         showSpinner: true,
         includeCSS: true,
     },

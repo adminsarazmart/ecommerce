@@ -18,7 +18,7 @@
             </Link>
             <nav class="hidden lg:flex items-center gap-1">
               <div v-for="item in headerMenu" :key="item.label" class="relative" @mouseenter="item.children && (activeMega = item.label)" @mouseleave="activeMega = null">
-                <Link :href="item.url" :class="['nav-link px-3 py-2 rounded-lg', route().current(item.route) && 'nav-link-active']">
+                <Link :href="item.url" :class="['nav-link px-3 py-2 rounded-lg']">
                   {{ item.label }}
                 </Link>
                 <MegaMenu v-if="item.children" :open="activeMega === item.label" :columns="item.children" @mouseenter="activeMega = item.label" @mouseleave="activeMega = null" />
@@ -165,12 +165,13 @@ import MegaMenu from '@/Components/Shared/UI/MegaMenu.vue'
 import MiniCart from '@/Components/Shared/UI/MiniCart.vue'
 import Dropdown from '@/Components/Shared/UI/Dropdown.vue'
 
-const storeName = computed(() => page.props?.settings?.store_name || 'Marketplace')
+const page = usePage()
+const storeName = computed(() => page.props?.settings?.site_name || 'NexusMart')
 const announcement = computed(() => page.props?.settings?.announcement || {})
 const headerMenu = computed(() => page.props?.header_menu || [])
 const footer = computed(() => page.props?.footer || { columns: [] })
 
-const user = computed(() => page.props?.auth?.user)
+const user = computed(() => page.props?.user)
 
 const cartStore = useCartStore()
 const wishlistStore = useWishlistStore()

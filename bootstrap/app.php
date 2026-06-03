@@ -20,6 +20,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'inertia.share' => \App\Http\Middleware\ShareInertiaData::class,
             '2fa' => \App\Http\Middleware\TwoFactorAuthentication::class,
             'api.log' => \App\Http\Middleware\LogApiRequests::class,
+            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+            'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         ]);
 
         $middleware->group('web', [
